@@ -17,14 +17,18 @@ X, y = cleanData('Melanoma.csv')
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=20)
 
 #using functions so easily adjusted
-num_attribs = ['AGE', 'DEPTH', "MITOSES", "CS_EXTENSION"]
-cat_attribs = ['SEX', 'RACE', 'SPANISH_HISPANIC_ORIGIN','ULCERATION', 'PRIMARY_SITE']
+num_attribs = ['AGE','DEPTH', "MITOSES", "CS_EXTENSION"]
+#cat_attribs = ['SEX', 'RACE', 'SPANISH_HISPANIC_ORIGIN','ULCERATION', 'PRIMARY_SITE']
+cat_attribs = [ 'SEX', 'ULCERATION', 'PRIMARY_SITE']
+
+
 
 pipe = preprocess_pipeline(num_attribs, 3, cat_attribs).fit(X_train)
 x_train = pipe.transform(X_train)
 
 x_cv, x_train = x_train[:10000, :], x_train[10000:,:]
 y_cv, y_train = y_train[:10000], y_train[10000:]
+
 
 base_line_clf = BaseLine()
 base_scores = cross_val_score(base_line_clf,x_train,y_train,cv=10,scoring="accuracy")

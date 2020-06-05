@@ -1,6 +1,5 @@
 streamlit==0.59
 numpy
-python
 sklearn
 pandas
 matplotlib

@@ -85,7 +85,7 @@ fig = plt.figure(FigureClass = Waffle, rows = 10, values = dat, icons = "child",
 #plt.show()
 st.pyplot()
 
-st.write("This number shows the probability that the melanoma has spread to the sentinel lymph node.")
+st.write("This number shows the probability (or odds) that the melanoma has spread to the sentinel lymph node. For every 100 people, approximately {:.2f} would have a positive biopsy given the demographics. The sentinel lymph node is the ".format(y_proba_log[0,1]*100))
 
 st.write(f"Based upon the Breslow Thickness, ulceration, and mitosis, the patient's tumor is classification {stage}. Patients with this classifications have had the following outcomes")
 

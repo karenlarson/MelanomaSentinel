@@ -6,15 +6,17 @@ from sklearn.linear_model import LogisticRegression
 from encodeAttribs import preprocess_pipeline
 import numpy as np
 import matplotlib.pyplot as plt
+from pywaffle import Waffle
+
 
 log_clf = pickle.load(open('logistic_clf.sav','rb'))
 #gnb_clf = pickle.load(open('gnb_clf.sav','rb'))
 pipe = pickle.load(open('transform.sav', 'rb'))
 
 st.title('Welcome to MelanomaSentinel')
-st.write('*A doctor\'s second opinion*')
+st.subheader('*A doctor\'s second opinion*')
 st.write('Enter the following demographics for the patient in the left panel for their chances for needing a sentinal lymph node biopsy:')
-st.write('Age, melanoma depth, Clark Level, mitotic count, presence of ulceration, sex, and primary site of melanomy')
+st.write('Age, Breslow Thickness (in mm), Clark Level, Mitotic Count, Presence of Ulceration, Sex, and Primary Site of Melanoma')
 
 #sidebars to get user input
 res = { 'DEPTH': 0, 'CS_EXTENSION': 0, 'MITOSES': 0, 'SEX': 0, 'ULCERATION': 0, 'PRIMARY_SITE': 0}
@@ -40,17 +42,49 @@ res_df = pd.DataFrame(res, index = [0])
 x_trans = pipe.transform(res_df)
 y_pred_log = log_clf.predict(x_trans)
 y_proba_log = log_clf.predict_proba(x_trans)
-st.write("Probability of having a negative biopsy (0) or positive biopsy (1):", y_proba_log)
+st.subheader("The chances that a person with these demographics would have a positive sentinel lymph node biopsy is {:.2f}%.".format(y_proba_log[0,1]*100))
 
 #visualization to aid in understanding
-labels = 'Negative Biopsy', 'Positive Biopsy'
+#labels = 'Negative Biopsy', 'Positive Biopsy'
 sizes = y_proba_log
-explode = (0, 0.1)
-fig, ax1 = plt.subplots()
-ax1.pie(sizes, explode=explode, labels=labels, autopct="%1.1f%%", shadow=False, startangle=45)
-ax1.axis('equal')
-plt.show()
+#explode = (0, 0.1)
+#fig, ax1 = plt.subplots()
+#ax1.pie(sizes, explode=explode, labels=labels, autopct="%1.1f%%", shadow=False, startangle=45)
+#ax1.axis('equal')
+#plt.show()
+#st.pyplot()
+
+if res['DEPTH'] <= 100:
+	if res['MITOSES'] == 0 and res['ULCERATION'] == 0:
+		stage = "T1a"
+	else:
+		stage = "T1b"
+elif res['DEPTH'] <= 200:
+	if res['ULCERATION'] == 0:
+		stage = "T2a"
+	else:
+		stage = "T2b"
+elif res['DEPTH'] <= 400:
+	if res['ULCERATION'] == 0:
+		stage = "T3a"
+	else:
+		stage = "T3b"
+
+else:
+	if res['ULCERATION'] == 0:
+		stage = "T4a"
+	else:
+		stage = "T4b"
+
+dat = {"Positive Biopsy": round(sizes[0, 1]*100), "Negative Biopsy": round(sizes[0, 0]*100)}
+
+fig = plt.figure(FigureClass = Waffle, rows = 10, values = dat, icons = "child", icon_size=18, icon_legend = True, legend={'loc': 'upper left', 'bbox_to_anchor': (1, 1)})
+#plt.show()
 st.pyplot()
+
+st.write("This number shows the probability that the melanoma has metastasized to other sites.")
+
+st.write(f"Based upon the Breslow Thickness, ulceration, and mitosis, the patient's tumor is classification {stage}. Patients with this classifications have had the following outcomes")
 
 #y_pred_gnb = gnb_clf.predict(x_trans)
 #y_proba_gnb = gnb_clf.predict_proba(x_trans)

@@ -50,7 +50,7 @@ base_line_clf = BaseLine()
 base_scores = cross_val_score(base_line_clf,x_train,y_train,cv=10,scoring="accuracy")
 print(base_scores.mean())
 
-log_clf = LogisticRegression(solver="liblinear", class_weight='balanced')
+log_clf = LogisticRegression(solver="liblinear")
 log_clf.fit(x_train,y_train)
 importance = log_clf.coef_[0]
 # summarize feature importance

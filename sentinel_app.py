@@ -15,7 +15,7 @@ pipe = pickle.load(open('transform.sav', 'rb'))
 
 st.title('Welcome to MelanomaSentinel')
 st.subheader('*A doctor\'s second opinion*')
-st.write('Enter the following demographics for the patient in the left panel for their probability of requiring a sentinal lymph node biopsy:')
+st.write('Enter the following demographics for the patient in the left panel for their probability of needing a sentinal lymph node biopsy:')
 st.write('Age, Breslow Thickness (in mm), Clark Level, Mitotic Count, Presence of Ulceration, Sex, and Primary Site of Melanoma')
 
 #sidebars to get user input
@@ -42,7 +42,7 @@ res_df = pd.DataFrame(res, index = [0])
 x_trans = pipe.transform(res_df)
 y_pred_log = log_clf.predict(x_trans)
 y_proba_log = log_clf.predict_proba(x_trans)
-st.subheader("The chance that a person with these demographics would have a positive sentinel lymph node biopsy is {round(y_proba_log[0,1])}%.".format(y_proba_log[0,1]*100))
+st.subheader("The chance that a person with these demographics would have a positive sentinel lymph node biopsy is {:.2f}%.".format(y_proba_log[0,1]*100))
 
 #visualization to aid in understanding
 #labels = 'Negative Biopsy', 'Positive Biopsy'

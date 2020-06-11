@@ -9,9 +9,12 @@ from bayesReg import gnb_clf
 import pickle 
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import GaussianNB
+import pandas as pd
+
 
 #cleaning the data in cleanData
-X, y = cleanData('Melanoma.csv')
+data = pd.read_csv('Melanoma.csv')
+X, y = cleanData(data)
 
 #split the data into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=20)

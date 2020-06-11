@@ -76,7 +76,10 @@ else:
 	else:
 		stage = "T4b"
 
-dat = {"Positive Biopsy": round(sizes[0, 1]*100), "Negative Biopsy": round(sizes[0, 0]*100)}
+pos_biops = "Positive Biopsy \n({:.2f}%)".format(sizes[0,1]*100)
+neg_biops = "Negative Biopsy \n({:.2f}%)".format(sizes[0,0]*100)
+
+dat = {pos_biops: round(sizes[0, 1]*100), neg_biops: round(sizes[0, 0]*100)}
 
 fig = plt.figure(FigureClass = Waffle, rows = 10, values = dat, icons = "child", icon_size=18, icon_legend = True, legend={'loc': 'upper left', 'bbox_to_anchor': (1, 1)})
 #plt.show()

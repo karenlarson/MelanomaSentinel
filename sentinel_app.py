@@ -14,7 +14,7 @@ log_clf = pickle.load(open('logistic_clf.sav','rb'))
 pipe = pickle.load(open('transform.sav', 'rb'))
 
 st.title('Welcome to MelanomaSentinel')
-st.subheader('*A doctor\'s second opinion*')
+st.subheader('*Predicting when biopsies are necessary*')
 st.write('Enter the following demographics for the patient in the left panel for their probability of needing a sentinal lymph node biopsy:')
 st.write('Age, Breslow Thickness (in mm), Clark Level, Mitotic Count, Presence of Ulceration, Sex, and Primary Site of Melanoma')
 
@@ -82,7 +82,7 @@ fig = plt.figure(FigureClass = Waffle, rows = 10, values = dat, icons = "child",
 #plt.show()
 st.pyplot()
 
-st.write("This number shows the probability that the melanoma has metastasized to other sites.")
+st.write("This number shows the probability that the melanoma has spread to the sentinel lymph node.")
 
 st.write(f"Based upon the Breslow Thickness, ulceration, and mitosis, the patient's tumor is classification {stage}. Patients with this classifications have had the following outcomes")
 

@@ -2,26 +2,26 @@ import streamlit as st
 from sklearn.naive_bayes import GaussianNB
 import pandas as pd
 import pickle
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegressions
 from encodeAttribs import preprocess_pipeline
 import numpy as np
 import matplotlib.pyplot as plt
 from pywaffle import Waffle
 
-
+#import in the classifier and trained pipeline
 log_clf = pickle.load(open('logistic_clf.sav','rb'))
-#gnb_clf = pickle.load(open('gnb_clf.sav','rb'))
 pipe = pickle.load(open('transform.sav', 'rb'))
 
+#instructions to user
 st.title('Welcome to MelanomaSentinel')
 st.subheader('*Predicting when biopsies are necessary*')
 st.write('Enter the following demographics for the patient in the left panel for their probability of needing a sentinal lymph node biopsy:')
 st.write('Age, Breslow Thickness (in mm), Clark Level, Mitotic Count, Presence of Ulceration, Sex, and Primary Site of Melanoma')
 
-#sidebars to get user input
+#sidebars to get user input; include reasonable min and maxes for patient data
 res = { 'DEPTH': 0, 'CS_EXTENSION': 0, 'MITOSES': 0, 'SEX': 0, 'ULCERATION': 0, 'PRIMARY_SITE': 0}
 res['AGE'] = st.sidebar.number_input('Age of patient:', min_value= 0, max_value=120, value=40, step=10)
-res['DEPTH'] = 100*st.sidebar.number_input('Measured thickness (depth) of melanoma (in millimeters):', min_value = 0.0, max_value=9.80, value=1.00,step = 0.1)
+res['DEPTH'] = 100*st.sidebar.number_input('Measured thickness (depth) of melanoma (in millimeters):', min_value = 0.0, max_value=10.00, value=1.00,step = 0.1)
 res['CS_EXTENSION'] = 100*(st.sidebar.number_input('Clark level (1 - 5): ', min_value = 1, max_value = 5, value = 1, step = 1) - 1)
 res['MITOSES'] = st.sidebar.number_input('Primary tumor mitotic count (# mitoses per square milimeter (mm)): ', min_value = 0, max_value = 11, value = 0, step = 1)
 res['ULCERATION'] = 0 + (st.sidebar.text_input('Presence of ulceration (Yes or No):', 'No')[0].lower() == 'y')
@@ -53,8 +53,8 @@ sizes = y_proba_log
 #ax1.axis('equal')
 #plt.show()
 #st.pyplot()
-data = {}
 
+#getting the cancer stage
 if res['DEPTH'] <= 100:
 	if res['MITOSES'] == 0 and res['ULCERATION'] == 0:
 		stage = "T1a"
@@ -85,21 +85,19 @@ else:
 	else:
 		stage = "T4b"
 		percent = 16.53
-
+#creating waffle plot
 pos_biops = "Positive Biopsy \n({:.2f}%)".format(sizes[0,1]*100)
 neg_biops = "Negative Biopsy \n({:.2f}%)".format(sizes[0,0]*100)
-
 dat = {pos_biops: round(sizes[0, 1]*100), neg_biops: round(sizes[0, 0]*100)}
-
 fig = plt.figure(FigureClass = Waffle, rows = 10, values = dat, icons = "child", icon_size=18, icon_legend = True, legend={'loc': 'upper left', 'bbox_to_anchor': (1, 1)})
-#plt.show()
 st.pyplot()
 
+#classification
 if y_proba_log[0,1] > 0.05 and y_proba_log[0,1] < 0.10:
 	st.subheader("This patient should be recommended for SLNB.")
 else:
 	st.subheader("This patient should not be recommended for SLNB.")
-
+#giving user background about representation of data
 st.write("This number shows the probability (or odds) that the melanoma has spread to the sentinel lymph node. For every 100 people similar to the patient, approximately {:.2f} would have a positive biopsy given the demographics. The sentinel lymph node is the first most likely lymph node for cancer to have spread. Rates of metastasis in the nodes vary greatly depending on several factors, including the depth of the melanoma and ulceration.".format(y_proba_log[0,1]*100))
 
 

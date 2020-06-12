@@ -21,6 +21,8 @@ def classifierEvaluation(clf, threshold, X_data, y_data, classifier_name, data_d
 	specificity = tn/(tn + fp)
 	print("For the {} using {}, the accuracy is {:.4f}, the precision is {:.4f}, the recall is {:.4f}, the specificity is {:.4f} and the f1 score is {:.4f}".format(data_descriptor, classifier_name, score, precision, recall, specificity, f1))
 
+
+	#creating a seaborn visualization for the confusion matrix; splitting the colors based upon the Negative/Positive true labels.
 	group_names = ['True Neg', 'False Pos', 'False Neg', 'True Pos']
 	group_counts = ["{0:0.0f}".format(value) for value in cf_mat.flatten()]
 	group_perct = [0]*4
@@ -28,15 +30,15 @@ def classifierEvaluation(clf, threshold, X_data, y_data, classifier_name, data_d
 	group_perct[1] = "{0:.2%}".format(fp/(tn + fp))
 	group_perct[2] = "{0:.2%}".format(fn/(fn + tp))
 	group_perct[3] = "{0:.2%}".format(tp/(fn + tp))
-	#group_perct = ["{0:.2%}".format(value) for value in cf_mat.flatten()/np.sum(cf_mat)]
 
 	labels = [f"{v1}\n{v2}\n{v3}" for v1, v2, v3 in zip(group_names, group_counts, group_perct)]
 	labels = np.asarray(labels).reshape(2,2)
-
-	a = np.array([[tn/(tn + fp), fp/(tn + fp)],[fn/(fn + tp), tp/(fn + tp)]])
+	#what we'll use for the heat coloring -- want the rows of the heat map to sum to 1 to get 
+	#a sense of the specificty and recall of the method
+	relative_percents = np.array([[tn/(tn + fp), fp/(tn + fp)],[fn/(fn + tp), tp/(fn + tp)]])
 	print(cf_mat)
 
-	sns.heatmap(a, annot=labels, fmt='', cmap = 'Blues')
+	sns.heatmap(relative_percents, annot=labels, fmt='', cmap = 'Blues')
 	plt.ylabel('True label')
 	plt.xlabel('Predicted label')
 	title = "Confusion Matrix for {} using {}".format(classifier_name, data_descriptor)

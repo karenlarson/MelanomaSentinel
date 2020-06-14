@@ -79,4 +79,7 @@ classifierEvaluation(log_clf, 0.005, x_test, y_test, "Logistic Regression", "Tes
 filename = 'logistic_clf.sav'
 pickle.dump(log_clf, open(filename, 'wb'))
 
+#dumps the feature pipeline using pickle for the web-app to use
+filename = 'transform.sav'
+pickle.dump(pipe, open(filename), 'wb')
 

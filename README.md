@@ -1,4 +1,5 @@
 # MelanomaSentinel
+
 The goal of this project is to create a web-application that doctors can use to advise patients on whether they need a sentinel lymph node biopsy (SLNB). Currently, only about 10% of SLNB are necessary, leading to additional health complications and financial costs for those that undergo an unneeded treatment. This repo provides the code used to train and test the logistic regression model used, as well as deploy the web-application.
 
 # Motivation
@@ -9,7 +10,7 @@ The sentinel lymph node is the most likely first node for melanoma to have sprea
 To this end, this application provides an improved predictor for SLNB and reduces the number of unnecessary tests by around 16% while maintaining a fairly high recall (99.6%).
 
 # Project Information
-This project was done in conjuction with the Cutaneous Oncology Research Lab at University Hospitals. My contribution was creating SQL databases, gathering the NIH SEER data, exploring the data, creating and comparing prediction models, and reporting the results. This was done during the Summer 2020 Insight Boston session.
+This project was done in conjuction with the [Cutaneous Oncology Research Lab at University Hospitals](https://www.uhhospitals.org/doctors/Yu-Wesley-1609244086). My contribution was creating SQL databases, gathering the NIH SEER data, exploring the data, creating and comparing prediction models, and reporting the results. This was done during the [Summer 2020 Insight Boston](https://insightfellows.com/health-data) session.
 
 # Step 0: The Driver of the Code
 
@@ -46,4 +47,18 @@ The pipeline used is incldued in encodeAttributes.py. To run the pipeline, impor
 # Step 3: Train Models
 In this final version of the code, I use a baseline estimator and a logistic regression classifier. The baseline estimator just predicts accuracy, which is not the best metric of success for a skewed dataset like this, as the specificity will be 1.00, but it would miss every single biopsy case.
 
-The final version to fit the model is in the MelanomaSentinel.py file, which trains and pickles the trained model to logistic_clf.sav. The logistic regression classifier uses ridge regression with C = 1.0 and the class weights balanced. To evaluate the goodness of the classifier for various thresholds, 
+The final version to fit the model is in the MelanomaSentinel.py file, which trains and pickles the trained model to logistic_clf.sav. The logistic regression classifier uses ridge regression with C = 1.0 and the class weights balanced. To evaluate the goodness of the classifier for various thresholds, we call a function from classifierEvaluation.py, which takes a classifier, the probability cut-off thresholds, features, targets, and two strings indicating the type of classifier and the type of data (train, validation, test). The strings are used to print output to screen and create titles for confusion matricies, to make it easier to evaluate and save the results for various thresholds.
+
+# Step 4: Streamlit App
+
+The final tool is built as a streamlit application in sentinel_app.py, available at [melanoma-sentinel.herokuapp.com](https://melanoma-sentinel.herokuapp.com). To run the app locally on a machine type this in the terminal:
+
+`streamlit run sentinel_app.py`
+
+The requirements for the app are included in requirements.txt and the conda environment used is in environment.yml.
+
+To run the app, sentinel\_app.py, encodeAttribs.py, logistic\_clf.sav and transformer.sav are required.
+
+# Presentation
+
+Google slides summarizing the project can be found here.

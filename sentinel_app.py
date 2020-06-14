@@ -2,7 +2,7 @@ import streamlit as st
 from sklearn.naive_bayes import GaussianNB
 import pandas as pd
 import pickle
-from sklearn.linear_model import LogisticRegressions
+from sklearn.linear_model import LogisticRegression
 from encodeAttribs import preprocess_pipeline
 import numpy as np
 import matplotlib.pyplot as plt

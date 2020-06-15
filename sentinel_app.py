@@ -93,7 +93,7 @@ fig = plt.figure(FigureClass = Waffle, rows = 10, values = dat, icons = "child",
 st.pyplot()
 
 #classification
-if y_proba_log[0,1] > 0.05 and y_proba_log[0,1] < 0.10:
+if y_proba_log[0,1] > 0.05:
 	st.subheader("This patient should be recommended for SLNB.")
 else:
 	st.subheader("This patient should not be recommended for SLNB.")

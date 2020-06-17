@@ -98,7 +98,10 @@ if y_proba_log[0,1] > 0.05:
 else:
 	st.subheader("This patient should not be recommended for SLNB.")
 #giving user background about representation of data
-st.write("This number shows the probability (or odds) that the melanoma has spread to the sentinel lymph node. For every 100 people similar to the patient, approximately {:.2f} would have a positive biopsy given the demographics. The sentinel lymph node is the first most likely lymph node for cancer to have spread. Rates of metastasis in the nodes vary greatly depending on several factors, including the depth of the melanoma and ulceration.".format(y_proba_log[0,1]*100))
+st.write("This number shows the probability (or odds) that the melanoma has spread to the sentinel lymph node. For every 100 people similar to the patient, approximately {:.2f} would have a positive biopsy given the demographics.".format(y_proba_log[0,1]*100)) 
+
+
+#st.write("The sentinel lymph node is the first most likely lymph node for cancer to have spread. Rates of metastasis in the nodes vary greatly depending on several factors, including the depth of the melanoma and ulceration.")
 
 
 

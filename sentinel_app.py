@@ -11,10 +11,9 @@ from pywaffle import Waffle
 #import in the classifier and trained pipeline
 log_clf = pickle.load(open('logistic_clf.sav','rb'))
 pipe = pickle.load(open('transform.sav', 'rb'))
-
 #instructions to user
 st.title('Welcome to MelanomaSentinel')
-st.subheader('*Predicting when biopsies are necessary*')
+st.subheader('*Defending against unnecessary biopsies*')
 st.write('Enter the following demographics for the patient in the left panel for their probability of needing a sentinal lymph node biopsy:')
 st.write('Age, Breslow Thickness (in mm), Clark Level, Mitotic Count, Presence of Ulceration, Sex, and Primary Site of Melanoma')
 
@@ -42,6 +41,9 @@ res_df = pd.DataFrame(res, index = [0])
 x_trans = pipe.transform(res_df)
 y_pred_log = log_clf.predict(x_trans)
 y_proba_log = log_clf.predict_proba(x_trans)
+if res['DEPTH'] < 0.000000001:
+	y_proba_log[0,1] = 0
+	y_proba_log[0,0] = 1
 st.subheader("The chance that a person with these demographics would have a positive sentinel lymph node biopsy is {:.2f}%.".format(y_proba_log[0,1]*100))
 
 #visualization to aid in understanding
@@ -86,8 +88,10 @@ else:
 		stage = "T4b"
 		percent = 16.53
 #creating waffle plot
+
 pos_biops = "Positive Biopsy \n({:.2f}%)".format(sizes[0,1]*100)
 neg_biops = "Negative Biopsy \n({:.2f}%)".format(sizes[0,0]*100)
+
 dat = {pos_biops: round(sizes[0, 1]*100), neg_biops: round(sizes[0, 0]*100)}
 fig = plt.figure(FigureClass = Waffle, rows = 10, values = dat, icons = "child", icon_size=18, icon_legend = True, legend={'loc': 'upper left', 'bbox_to_anchor': (1, 1)})
 st.pyplot()

@@ -19,7 +19,7 @@ st.write('Age, Breslow Thickness (in mm), Clark Level, Mitotic Count, Presence o
 
 #sidebars to get user input; include reasonable min and maxes for patient data
 res = { 'DEPTH': 0, 'CS_EXTENSION': 0, 'MITOSES': 0, 'SEX': 0, 'ULCERATION': 0, 'PRIMARY_SITE': 0}
-res['AGE'] = st.sidebar.number_input('Age of patient:', min_value= 18å, max_value=120, value=40, step=10)
+res['AGE'] = st.sidebar.number_input('Age of patient:', min_value= 18, max_value=120, value=40, step=10)
 res['DEPTH'] = 100*st.sidebar.number_input('Measured thickness (depth) of melanoma (in millimeters):', min_value = 0.0, max_value=10.00, value=1.00,step = 0.1)
 res['CS_EXTENSION'] = 100*(st.sidebar.number_input('Clark level (1 - 5): ', min_value = 1, max_value = 5, value = 1, step = 1) - 1)
 res['MITOSES'] = st.sidebar.number_input('Primary tumor mitotic count (# mitoses per square milimeter (mm)): ', min_value = 0, max_value = 11, value = 0, step = 1)

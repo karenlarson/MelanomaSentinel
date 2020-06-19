@@ -19,7 +19,7 @@ st.write('Age, Breslow Thickness (in mm), Clark Level, Mitotic Count, Presence o
 
 #sidebars to get user input; include reasonable min and maxes for patient data
 res = { 'DEPTH': 0, 'CS_EXTENSION': 0, 'MITOSES': 0, 'SEX': 0, 'ULCERATION': 0, 'PRIMARY_SITE': 0}
-res['AGE'] = st.sidebar.number_input('Age of patient:', min_value= 0, max_value=120, value=40, step=10)
+res['AGE'] = st.sidebar.number_input('Age of patient:', min_value= 18, max_value=120, value=40, step=10)
 res['DEPTH'] = 100*st.sidebar.number_input('Measured thickness (depth) of melanoma (in millimeters):', min_value = 0.0, max_value=10.00, value=1.00,step = 0.1)
 res['CS_EXTENSION'] = 100*(st.sidebar.number_input('Clark level (1 - 5): ', min_value = 1, max_value = 5, value = 1, step = 1) - 1)
 res['MITOSES'] = st.sidebar.number_input('Primary tumor mitotic count (# mitoses per square milimeter (mm)): ', min_value = 0, max_value = 11, value = 0, step = 1)
@@ -119,4 +119,10 @@ st.write(f"{percent}% of {stage} have a poisitve SLNB.")
 #y_pred_gnb = gnb_clf.predict(x_trans)
 #y_proba_gnb = gnb_clf.predict_proba(x_trans)
 #st.write("Probability of having a negative biopsy (0) or positive biopsy (1):", y_proba_gnb)
-
+st.markdown("""<br>""", unsafe_allow_html=True)
+st.markdown("""<br>""", unsafe_allow_html=True)
+st.markdown("""<br>""", unsafe_allow_html=True)
+st.markdown("""<iframe src="https://docs.google.com/presentation/d/1--eW4tCH3lwxLpfyjghiqK3en7VOY016BZvjH87k4mw/embed?start=false&loop=false&delayms=10000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>""", unsafe_allow_html=True
+)
+st.write(
+"Created by Karen Larson, Health Data Science Fellow at Insight Data Science in Boston, MA.")

@@ -23,13 +23,20 @@ res['AGE'] = st.sidebar.number_input('Age of patient:', min_value= 18, max_value
 res['DEPTH'] = 100*st.sidebar.number_input('Measured thickness (depth) of melanoma (in millimeters):', min_value = 0.0, max_value=10.00, value=1.00,step = 0.1)
 res['CS_EXTENSION'] = 100*(st.sidebar.number_input('Clark level (1 - 5): ', min_value = 1, max_value = 5, value = 1, step = 1) - 1)
 res['MITOSES'] = st.sidebar.number_input('Primary tumor mitotic count (# mitoses per square milimeter (mm)): ', min_value = 0, max_value = 11, value = 0, step = 1)
-res['ULCERATION'] = 0 + (st.sidebar.text_input('Presence of ulceration (Yes or No):', 'No')[0].lower() == 'y')
-holder = st.sidebar.text_input('Sex:', 'Male')
+holder = st.sidebar.radio("Presence of ulceration:", options = ("Yes", "No"))
+if holder == "Yes":
+	res['ULCERATION'] = 1
+else:
+	res['ULCERATION'] = 0
+#res['ULCERATION'] = 0 + (st.sidebar.text_input('Presence of ulceration (Yes or No):', 'No')[0].lower() == 'y')
+holder = st.sidebar.radio(label="Patient's sex:", options = ('Male', 'Female'))
+#holder = st.sidebar.text_input('Sex:', 'Male')
 res['SEX'] = 1 + (holder[0].lower() == 'f')
-holder = st.sidebar.text_input('Primary site of melanoma (Head, Trunk, Limbs):', 'Head')
-if holder[0].lower() == 'h':
+holder = st.sidebar.radio("Primary site of melanoma:", options = ("Head", "Trunk", "Limbs"))
+#holder = st.sidebar.text_input('Primary site of melanoma (Head, Trunk, Limbs):', 'Head')
+if holder == "Head":
 	res['PRIMARY_SITE'] = 0
-elif holder[0].lower() == 't':
+elif holder == "Trunk":
 	res['PRIMARY_SITE'] = 1
 else:
 	res['PRIMARY_SITE'] = 2

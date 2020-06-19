@@ -2,14 +2,14 @@ import streamlit as st
 from sklearn.naive_bayes import GaussianNB
 import pandas as pd
 import pickle
-from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 from encodeAttribs import preprocess_pipeline
 import numpy as np
 import matplotlib.pyplot as plt
 from pywaffle import Waffle
 
 #import in the classifier and trained pipeline
-log_clf = pickle.load(open('logistic_clf.sav','rb'))
+forest_clf = pickle.load(open('forest_clf.sav','rb'))
 pipe = pickle.load(open('transform.sav', 'rb'))
 #instructions to user
 st.title('Welcome to MelanomaSentinel')
@@ -46,8 +46,8 @@ res_df = pd.DataFrame(res, index = [0])
 
 #transforming new input and making predictions (both class and the probabilities)
 x_trans = pipe.transform(res_df)
-y_pred_log = log_clf.predict(x_trans)
-y_proba_log = log_clf.predict_proba(x_trans)
+y_pred_log = forest_clf.predict(x_trans)
+y_proba_log = forest_clf.predict_proba(x_trans)
 if res['DEPTH'] < 0.000000001:
 	y_proba_log[0,1] = 0
 	y_proba_log[0,0] = 1
@@ -64,8 +64,8 @@ sizes = y_proba_log
 #st.pyplot()
 
 #getting the cancer stage
-if res['DEPTH'] <= 100:
-	if res['MITOSES'] == 0 and res['ULCERATION'] == 0:
+if res['DEPTH'] < 80:
+	if res['MITOSES'] == 0:
 		stage = "T1a"
 		percent = 0.43
 

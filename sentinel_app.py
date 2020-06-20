@@ -126,10 +126,10 @@ st.write(f"{percent}% of {stage} have a poisitve SLNB.")
 #y_pred_gnb = gnb_clf.predict(x_trans)
 #y_proba_gnb = gnb_clf.predict_proba(x_trans)
 #st.write("Probability of having a negative biopsy (0) or positive biopsy (1):", y_proba_gnb)
-#st.markdown("""<br>""", unsafe_allow_html=True)
-#st.markdown("""<br>""", unsafe_allow_html=True)
-#st.markdown("""<br>""", unsafe_allow_html=True)
-#st.markdown("""<iframe src="https://docs.google.com/presentation/d/1--eW4tCH3lwxLpfyjghiqK3en7VOY016BZvjH87k4mw/embed?start=false&loop=false&delayms=10000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>""", unsafe_allow_html=True
-#)
-#st.write(
-#"Created by Karen Larson, Health Data Science Fellow at Insight Data Science in Boston, MA.")#
+st.markdown("""<br>""", unsafe_allow_html=True)
+st.markdown("""<br>""", unsafe_allow_html=True)
+st.markdown("""<br>""", unsafe_allow_html=True)
+st.markdown("""<iframe src="https://docs.google.com/presentation/d/1--eW4tCH3lwxLpfyjghiqK3en7VOY016BZvjH87k4mw/embed?start=false&loop=false&delayms=10000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>""", unsafe_allow_html=True
+)
+st.write(
+"Created by Karen Larson, Health Data Science Fellow at Insight Data Science in Boston, MA.")#

@@ -72,6 +72,9 @@ if res['DEPTH'] < 80:
 	else:
 		stage = "T1b"
 		percent = 2.69
+elif res['DEPTH'] <= 100:
+		stage = "T1b"
+		percent = 2.69
 elif res['DEPTH'] <= 200:
 	if res['ULCERATION'] == 0:
 		stage = "T2a"

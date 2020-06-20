@@ -57,7 +57,7 @@ The final tool is built as a streamlit application in sentinel_app.py, available
 
 The requirements for the app are included in requirements.txt and the conda environment used is in environment.yml.
 
-To run the app, sentinel\_app.py, encodeAttribs.py, logistic\_clf.sav and transformer.sav are required.
+To run the app, sentinel\_app.py, encodeAttribs.py, forest\_clf.sav and transformer.sav are required.
 
 # Presentation
 

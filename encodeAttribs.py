@@ -30,7 +30,7 @@ def preprocess_pipeline(num_attribs, degree, cat_attribs):
 
 #selects the numeric features, creates polynomial features of a specificed degree, uses a median imputer, and mimaxscaler
 def num_pipeline(num_attribs, deg):
-	return Pipeline([("select_numeric", DataFrameSelector(num_attribs)),('poly', PolynomialFeatures(degree=deg)), ("imputer", SimpleImputer(strategy="median")),('scaler', MinMaxScaler())])
+	return Pipeline([("select_numeric", DataFrameSelector(num_attribs)),('scaler', MinMaxScaler()), ('poly', PolynomialFeatures(degree=deg)), ("imputer", SimpleImputer(strategy="median"))])
  
 #selects categorical attributes, uses a most frequent imputer defined above, and one-hot encodes the attributes because we don't want a sense of similarity between our categories
 def cat_pipeline(cat_attribs):

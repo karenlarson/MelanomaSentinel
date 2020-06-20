@@ -10,7 +10,8 @@ def cleanData(data):
 	#More specific cleaning: 999 is often marked as the missing value; don't want to include melanoma of depth 0; 988 for mitoses
 	new_df = data[(data != 999).all(1)]
 	new_df = new_df[(new_df != 1022).all(1)]
-	new_df = new_df[new_df['DEPTH'] <= 980]
+	new_df['DEPTH'] = new_df['DEPTH'].replace(989.0, 980.0)
+	new_df = new_df[new_df['DEPTH'] <= 987]
 	new_df = new_df[new_df['DEPTH'] != 0]
 	new_df = new_df[new_df['MITOSES'] != 988]
 	
@@ -21,6 +22,7 @@ def cleanData(data):
 
 	#Combining features with the same meaning -- coding schema have changed so there are values that mean the same thing
 	new_df['ULCERATION'] = new_df['ULCERATION'].replace(10.0, 1.0)
+	new_df = new_df[new_df['ULCERATION']<=1]
 
 	#indicates Clark Level, the numbers we are replacing with 999 are coded for stage of cancer, which soley depends on depth
 	#and whether there is ulceration and not how far into the dermis it has invaded, so we exclude those values from consideration

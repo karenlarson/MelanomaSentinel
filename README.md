@@ -45,9 +45,9 @@ The categorical features were one-hot encoded, leading to a total of 42 features
 The pipeline used is incldued in encodeAttributes.py. To run the pipeline, import preprocessing\_pipeline(numerical\_attribs, polynomial\_degree, categorical\_attributes) from encodeAttributes.py, where numerical\_attributes is a list of the columns with numerical values, polynomial\_degree is the degree of polynomial needed for the model, and categorical\_attributes is the list of the columns with categorical values.
 
 # Step 3: Train Models
-In this final version of the code, I use a baseline estimator and a logistic regression classifier. The baseline estimator just predicts accuracy, which is not the best metric of success for a skewed dataset like this, as the specificity will be 1.00, but it would miss every single biopsy case.
+In this final version of the code, I use a baseline estimator and a random forest classifier. The baseline estimator just predicts accuracy, which is not the best metric of success for a skewed dataset like this, as the specificity will be 1.00, but it would miss every single biopsy case.
 
-The final version to fit the model is in the MelanomaSentinel.py file, which trains and pickles the trained model to logistic_clf.sav. The logistic regression classifier uses ridge regression with C = 1.0 and the class weights balanced. To evaluate the goodness of the classifier for various thresholds, we call a function from classifierEvaluation.py, which takes a classifier, the probability cut-off thresholds, features, targets, and two strings indicating the type of classifier and the type of data (train, validation, test). The strings are used to print output to screen and create titles for confusion matricies, to make it easier to evaluate and save the results for various thresholds.
+The final version to fit the model is in the MelanomaSentinel.py file, which trains and pickles the trained model to forest_clf.sav. To evaluate the goodness of the classifier for various thresholds, we call a function from classifierEvaluation.py, which takes a classifier, the probability cut-off thresholds, features, targets, and two strings indicating the type of classifier and the type of data (train, validation, test). The strings are used to print output to screen and create titles for confusion matricies, to make it easier to evaluate and save the results for various thresholds.
 
 # Step 4: Streamlit App
 
@@ -61,4 +61,4 @@ To run the app, sentinel\_app.py, encodeAttribs.py, logistic\_clf.sav and transf
 
 # Presentation
 
-Google slides summarizing the project can be found here.
+Google slides summarizing the project can be found [here](https://docs.google.com/presentation/d/1--eW4tCH3lwxLpfyjghiqK3en7VOY016BZvjH87k4mw/edit?usp=sharing).

@@ -3,13 +3,14 @@ from sklearn.naive_bayes import GaussianNB
 import pandas as pd
 import pickle
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
 from encodeAttribs import preprocess_pipeline
 import numpy as np
 import matplotlib.pyplot as plt
 from pywaffle import Waffle
 
 #import in the classifier and trained pipeline
-forest_clf = pickle.load(open('forest_clf.sav','rb'))
+logistic_clf = pickle.load(open('logistic_clf.sav','rb'))
 pipe = pickle.load(open('transform.sav', 'rb'))
 #instructions to user
 st.title('Welcome to MelanomaSentinel')
@@ -46,8 +47,8 @@ res_df = pd.DataFrame(res, index = [0])
 
 #transforming new input and making predictions (both class and the probabilities)
 x_trans = pipe.transform(res_df)
-y_pred_log = forest_clf.predict(x_trans)
-y_proba_log = forest_clf.predict_proba(x_trans)
+y_pred_log = logistic_clf.predict(x_trans)
+y_proba_log = logistic_clf.predict_proba(x_trans)
 if res['DEPTH'] < 0.000000001:
 	y_proba_log[0,1] = 0
 	y_proba_log[0,0] = 1

@@ -14,14 +14,14 @@ This project was done in conjuction with the [Cutaneous Oncology Research Lab at
 
 # Step 0: The Driver of the Code
 
-The main function to create and train the logistic regression model is stored in MelanomaSentinel.py. This requires a SQL database of the melanoma patient data, cleanData.py, encodeAttribs.py, baseLine.py, and classifierEvaluation.py contained in this repo. This code assumes that you have pandas, scikit-learn, pickle, and postgresql installed. The required enviornment is included in the associated environment.yml file and in the requirements.txt.
+The main function to create and train the logistic regression model is stored in MelanomaSentinel.py. This requires a SQL database of the melanoma patient data, ./src/cleanData.py, encodeAttribs.py, ./src/baseLine.py, and ./src/classifierEvaluation.py contained in this repo. This code assumes that you have pandas, scikit-learn, pickle, and postgresql installed. The required enviornment is included in the associated environment.yml file and in the requirements.txt.
 
 # Step 1: Merge Data Sources
 The data from this project were taken from the [National Cancer Database](https://www.facs.org/quality-programs/cancer/ncdb) and the [NIH's SEER Program](https://seer.cancer.gov/data/). 
 
 The initial data were in .csv files, which I transferred to a SQL database for faster access.
 
-Python script used to clean the data is located in cleanData.py.
+Python script used to clean the data is located in ./src/cleanData.py.
 
 The data for this project are not publically available, so I am not able to provide links to the csv files or to the SQL database I created.
 
@@ -47,7 +47,7 @@ The pipeline used is incldued in encodeAttributes.py. To run the pipeline, impor
 # Step 3: Train Models
 In this final version of the code, I use a baseline estimator and a logistic regression classifier. The baseline estimator just predicts accuracy, which is not the best metric of success for a skewed dataset like this, as the specificity will be 1.00, but it would miss every single biopsy case.
 
-The final version to fit the model is in the MelanomaSentinel.py file, which trains and pickles the trained model to logistic_clf.sav. To evaluate the goodness of the classifier for various thresholds, we call a function from classifierEvaluation.py, which takes a classifier, the probability cut-off thresholds, features, targets, and two strings indicating the type of classifier and the type of data (train, validation, test). The strings are used to print output to screen and create titles for confusion matricies, to make it easier to evaluate and save the results for various thresholds.
+The final version to fit the model is in the ./src/MelanomaSentinel.py file, which trains and pickles the trained model to logistic_clf.sav. To evaluate the goodness of the classifier for various thresholds, we call a function from ./src/classifierEvaluation.py, which takes a classifier, the probability cut-off thresholds, features, targets, and two strings indicating the type of classifier and the type of data (train, validation, test). The strings are used to print output to screen and create titles for confusion matricies, to make it easier to evaluate and save the results for various thresholds.
 
 # Step 4: Streamlit App
 

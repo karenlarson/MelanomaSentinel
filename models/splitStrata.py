@@ -5,18 +5,19 @@ def splitStrata(X_data, y_data):
 	"""
 	tmp = X_data
 	tmp['TARGET'] = y_data
+	c7 = tmp['DEPTH'] < 80
+	c8 = tmp['DEPTH'] >= 80
 	c1 = tmp['DEPTH'] <= 100
 	c2 = tmp['ULCERATION'] == 0
-	c3 = tmp['MITOSES'] == 0
 	c4 = (tmp['DEPTH'] > 100) & (tmp['DEPTH'] <= 200)
 	c5 = (tmp['DEPTH'] > 200) & (tmp['DEPTH'] <= 400)
 	c6 = tmp['DEPTH'] > 400
 
-	T1a = tmp[c1 & c2 & c3]
+	T1a = tmp[c7 & c2]
 	y1a = T1a['TARGET']
 	T1a = T1a.drop(columns=["TARGET"])
 	
-	T1b = tmp[c1 & ~(c2 & c3)]
+	T1b = tmp[(c1 & ~(c2) )| (c8 & c1)]
 	y1b = T1b['TARGET']
 	T1b = T1b.drop(columns=["TARGET"])
 

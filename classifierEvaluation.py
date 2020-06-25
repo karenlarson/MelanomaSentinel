@@ -25,6 +25,7 @@ def classifierEvaluation(clf, threshold, X_data, y_data, classifier_name, data_d
 	pos_predictive_value = tp/(tp + fp)
 	neg_predictive_value = tn/(tn + fn)
 	print(f"NEGATIVE PREDICTIVE VALUE {neg_predictive_value}")
+	print(f"POSITIVE PREDICTIVE VALUE {pos_predictive_value}")
 
 	print("For the {} using {}, the accuracy is {:.4f}, the precision is {:.4f}, the recall is {:.4f}, the specificity is {:.4f}, the f1 score is {:.4f}, the auc is {:.4f}".format(data_descriptor, classifier_name, score, precision, recall, specificity, f1, roc_auc))
 

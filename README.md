@@ -38,9 +38,9 @@ For the final product, I used the following numerical attributes:
 - Primary Site of the Tumor (0 for Head, 1 for Trunk, 2 for Limbs)
 - Presence of Tumor Metastasis (Target Variable)
 
-The first four I considered numerical attributes, while the last three I considered numerical attributes. For the numerical attributes, the key indicator of melanoma extent medically is its depth. However, melanoma are three-dimensional objects, so I believed that using information about it's surface area and volume could provide valueable predictive power for the model. Therefore, I considered looking at polynomial features, specifically polynomial features of degree 3 in order to account for these considerations. 
+The first five I considered numerical attributes, while the last two I considered numerical attributes. For the numerical attributes, the key indicator of melanoma extent medically is its depth. However, melanoma are three-dimensional objects, so I believed that using information about it's surface area and volume could provide valueable predictive power for the model. Therefore, I considered looking at polynomial features, specifically polynomial features of degree 3 in order to account for these considerations. 
 
-The categorical features were one-hot encoded, leading to a total of 42 features trained for the model.
+The categorical features were one-hot encoded, leading to a total of 61 features trained for the model.
 
 The pipeline used is incldued in encodeAttributes.py. To run the pipeline, import preprocessing\_pipeline(numerical\_attribs, polynomial\_degree, categorical\_attributes) from encodeAttributes.py, where numerical\_attributes is a list of the columns with numerical values, polynomial\_degree is the degree of polynomial needed for the model, and categorical\_attributes is the list of the columns with categorical values.
 

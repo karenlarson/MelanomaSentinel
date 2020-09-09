@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from pywaffle import Waffle
 
 #import in the classifier and trained pipeline
-logistic_clf = pickle.load(open('logistic_clf.sav','rb'))
+logistic_clf = pickle.load(open('log_clf.sav','rb'))
 pipe = pickle.load(open('transform.sav', 'rb'))
 #instructions to user
 st.title('Welcome to MelanomaSentinel')
@@ -68,36 +68,36 @@ sizes = y_proba_log
 if res['DEPTH'] < 80:
 	if res['MITOSES'] == 0:
 		stage = "T1a"
-		percent = 0.43
+		percent = 0.77
 
 	else:
 		stage = "T1b"
-		percent = 2.69
+		percent = 4.45
 elif res['DEPTH'] <= 100:
 		stage = "T1b"
-		percent = 2.69
+		percent = 4.45
 elif res['DEPTH'] <= 200:
 	if res['ULCERATION'] == 0:
 		stage = "T2a"
-		percent = 9.27
+		percent = 9.73
 	else:
 		stage = "T2b"
-		percent = 12.77
+		percent = 13.22
 elif res['DEPTH'] <= 400:
 	if res['ULCERATION'] == 0:
 		stage = "T3a"
-		percent = 16.24
+		percent = 16.46
 	else:
 		stage = "T3b"
-		percent = 20.70
+		percent = 20.92
 
 else:
 	if res['ULCERATION'] == 0:
 		stage = "T4a"
-		percent = 24.76
+		percent = 24.43
 	else:
 		stage = "T4b"
-		percent = 16.53
+		percent = 15.93
 #creating waffle plot
 
 pos_biops = "Positive Biopsy \n({:.2f}%)".format(sizes[0,1]*100)

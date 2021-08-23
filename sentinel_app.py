@@ -23,7 +23,7 @@ def startpage():
 
 ***Use of ELMO is subject to the following:***
 
-1. The ELMO model has been developed by researchers based on a published risk prediction model (see [References](https://www.melanomarisk.org.au/References))
+1. The ELMO model has been developed by researchers based on a published risk prediction model (see References)
 
 2. It has been designed only for use by clinicians and researchers in relation to patients with primary melanomas and not recurrences.
 

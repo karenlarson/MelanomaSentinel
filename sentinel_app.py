@@ -86,9 +86,9 @@ def app1():
 	holder = st.sidebar.radio(label="Patient's sex:", options = ('Male', 'Female'))
 	#holder = st.sidebar.text_input('Sex:', 'Male')
 	res['SEX'] = 1 + (holder[0].lower() == 'f')
-	holder = st.sidebar.radio("Primary site of melanoma:", options = ("Head", "Trunk", "Limbs"))
-	#holder = st.sidebar.text_input('Primary site of melanoma (Head, Trunk, Limbs):', 'Head')
-	if holder == "Head":
+	holder = st.sidebar.radio("Primary site of melanoma:", options = ("Head and Neck", "Trunk", "Limbs"))
+	#holder = st.sidebar.text_input('Primary site of melanoma (Head and Neck, Trunk, Limbs):', 'Head and Neck')
+	if holder == "Head and Neck":
 		res['PRIMARY_SITE'] = 0
 	elif holder == "Trunk":
 		res['PRIMARY_SITE'] = 1
